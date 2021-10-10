@@ -1,10 +1,10 @@
 package com.xgileit.learning.student.controller;
 
-import com.xgileit.learning.student.service.StudentService;
 import com.xgileit.learning.student.model.Student;
+import com.xgileit.learning.student.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * The @RestController annotation is used to create Restful web services. It takes care of mapping
@@ -29,29 +29,38 @@ import java.util.Map;
 @RequestMapping(value="/api/v1/student")
 public class StudentController {
 
-    StudentService studentService = new StudentService();
+    private final StudentService studentService;
+
+    /**
+     * Here I am injecting the studentService in this class in order to have access to all it's
+     * functionalities.
+     * @param studentService
+     */
+    public StudentController(StudentService studentService)
+    {
+        this.studentService = studentService;
+    }
 
     /**
      * How to access this method: "/api/v1/student/all"
-     * @return list of all the student objects stored in database.
+     * @return list of all students stored in database.
      */
     @GetMapping("/all")
-    public Map<Long, Student> listAllStudents()
+    public List<Student> listAllStudents()
     {
         return studentService.getAllStudents();
     }
 
     /**
      * How to access this method: "/api/v1/student/add"
-     * This method adds a new student object to the database.
+     * This method adds a new student to the database.
      * @param student object
-     * @return "String" response ("Student Added"), if the request were successful.
+     * @return the student with his/her studentNumber if the request were successful
      */
     @PostMapping("/add")
-    public String addStudent(@RequestBody Student student)
+    public Student addStudent(@RequestBody Student student)
     {
-        String response = studentService.addNewStudent(student);
-        return response;
+        return studentService.addNewStudent(student);
     }
 
     /**
@@ -61,53 +70,57 @@ public class StudentController {
      * if the student object exists in the database.
      *
      * @param student object
-     * @return "String" response ("Student Updated"), if the request were successful.
+     * @return updated student if the request were successful
      */
     @PutMapping("/update")
-    public String updateStudent(@RequestBody Student student)
+    public Student updateStudent(@RequestBody Student student)
     {
-        String response = studentService.updateStudent(student);
-        return response;
+        return studentService.updateStudent(student);
     }
 
     /**
      * How to access this method: "/api/v1/student/find/the studentNumber"
      *
-     * The "{studentNumber}" is a place holder, indicating that it's not the actual value,
-     * the actual value will be added during runtime.
-     * The @PathVariable annotation indicates that the argument this method receives -> is bound to
-     * the URI Template Variable, which in this case is "{studentNumber}".
-     *
      * This method will find a student object by it's studentNumber in the database.
      *
      * @param studentNumber
-     * @return student object
+     * @return student object if student exists in database or Error message if student
+     *         with specified studentNumber does not exist in database
      */
     @GetMapping("/find/{studentNumber}")
     public Student findStudentByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
     {
-        return studentService.findStudentByStudentNumber(studentNumber);
+        return studentService.findStudent(studentNumber);
     }
+
 
     /**
      * How to access this method: "/api/v1/student/delete/ the studentNumber"
-     *
-     * The "{studentNumber}" is a place holder, indicating that it's not the actual value,
-     * the actual value will be added during runtime.
-     * The @PathVariable annotation indicates that the argument this method receives -> is bound to
-     * the URI Template Variable, which in this case is "{studentNumber}".
      *
      * This method will delete a student object from the database by using it's studentNumber as
      * a reference.
      *
      * @param studentNumber
-     * @return "String" response ("Student Deleted") if the request were successful.
+     * @return empty response if request were successful
      */
     @DeleteMapping("/delete/{studentNumber}")
-    public String deleteStudentByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
+    public void deleteStudentByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
     {
-        String response = studentService.deleteStudentByStudentNumber(studentNumber);
-        return response;
+        studentService.deleteStudent(studentNumber);
+    }
+
+    /**
+     * How to access this method: "/api/v1/student/fullName/ the studentNumber"
+     *
+     * This method will concatenate the student's firstName and lastName
+     *
+     * @param studentNumber
+     * @return Concatenated String of firstName & lastName of student
+     */
+    @GetMapping("/fullName/{studentNumber}")
+    public String getFullNameByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
+    {
+        return studentService.getStudentFullName(studentNumber);
     }
 
 }

@@ -7,8 +7,8 @@ public class StudentNotFoundException extends RuntimeException{
      * and display it to the user.
      * @param message
      */
-    public StudentNotFoundException(String message, Exception e)
+    public StudentNotFoundException(String message)
     {
-        super(message, e);
+        super(message);
     }
 }
