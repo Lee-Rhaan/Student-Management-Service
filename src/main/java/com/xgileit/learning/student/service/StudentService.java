@@ -10,18 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * You basically need to use the @Transactional Annotation when one part in your program
- * is going to have an effect on another part of your program.
- * So the reason i'm using it here is because when I delete a student from the database, it's
- * going to have an effect on the "getAllStudents".
- *
- * Meaning that if I don't add this annotation, I won't be able to delete a student from the
- * database.
- *
- * And i've added the @Service annotation to this class because Spring could not detect
- * a Bean for this class.
+ * This is the Service class. Here I am implementing all the business logic of this application.
  */
-@Transactional
 @Service
 public class StudentService {
 
@@ -69,39 +59,40 @@ public class StudentService {
     }
 
     /**
-     * Checks if the studentNumber being passed as an argument exists in the database.
+     * Checks if the id being passed as an argument exists in the database.
      *
-     * @param studentNumber Long
-     * @return student with matching studentNumber or throws a student not found exception if there's
-     *         no matching studentNumbers in the database.
+     * @param id Long
+     * @return student with matching id or throws a student not found exception if there's
+     *         no matching id's in the database.
      */
-    public Student findStudent(Long studentNumber)
+    public Student findStudent(Long id)
     {
-        return studentRepository.findStudentByStudentNumber(studentNumber).orElseThrow(() ->
-                new StudentNotFoundException("Student with studentNumber: " + studentNumber + " not found"));
+        return studentRepository.findStudentById(id).orElseThrow(() ->
+                new StudentNotFoundException("Student with id: " + id + " not found"));
     }
 
     /**
-     * Checks if a student with a matching studentNumber exists in the database.
+     * Checks if a student with a matching id exists in the database.
      * If it exists, the student will be removed.
      *
-     * @param studentNumber Long
+     * @param id Long
      */
-    public void deleteStudent(Long studentNumber)
+    @Transactional
+    public void deleteStudent(Long id)
     {
-        studentRepository.deleteStudentByStudentNumber(studentNumber);
+        studentRepository.deleteStudentById(id);
     }
 
     /**
-     * Checks if the student with the matching studentNumber exists in the database, then
+     * Checks if the student with the matching id exists in the database, then
      * it will return the FullName of the student.
      *
-     * @param studentNumber Long
-     * @return concatenated firstName & lastName of student (String)
+     * @param id Long
+     * @return concatenated name & surname of student (String)
      */
-    public String getStudentFullName(Long studentNumber)
+    public String getStudentFullName(Long id)
     {
-        Optional<Student> student = studentRepository.findStudentByStudentNumber(studentNumber);
+        Optional<Student> student = studentRepository.findStudentById(id);
         return student.get().getFullName();
     }
 }

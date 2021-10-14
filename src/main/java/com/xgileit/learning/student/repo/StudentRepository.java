@@ -15,8 +15,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      * These are custom abstract methods I am going to be implementing in my service class.
      * The names of these methods are going to be read like queries by Spring.
      */
-    void deleteStudentByStudentNumber(Long studentNumber);
+    void deleteStudentById(Long id);
 
     //setting it to optional, because this method may or may not return a value.
-    Optional<Student> findStudentByStudentNumber(Long studentNumber);
+    Optional<Student> findStudentById(Long id);
 }

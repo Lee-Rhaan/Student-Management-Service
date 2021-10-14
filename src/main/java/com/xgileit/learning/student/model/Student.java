@@ -5,27 +5,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Serializable converts an object into byte streams. You usually have to implement this interface if
- * your object is going to leave the "JVM" at some point.
+ * This is the Entity class which will be mapped to the database.
+ * The name of this Entity will be the Table Name in the database.
+ * It's instance variables will be the column names in the database
  */
-
-@Table(name = "students")
 @Entity
 public class Student implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "student_number")
-    private Long studentNumber;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
+    private Long id;
+    private String name;
+    private String surname;
     private String address;
-
     @Transient
     private String fullName;
 
@@ -41,60 +33,60 @@ public class Student implements Serializable {
     /**
      * I did not initialize the studentNumber in this constructor, because i'm going to generate
      * a random studentNumber for each Student Object being created.
-     * @param firstName
-     * @param lastName
+     * @param name
+     * @param surname
      * @param address
      */
-    public Student(String firstName, String lastName, String address)
+    public Student(String name, String surname, String address)
     {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
+        this.surname = surname;
         this.address = address;
     }
 
     /**
      *
-     * @return student object's studentNumber
+     * @return student object's id
      */
-    public Long getStudentNumber()
+    public Long getId()
     {
-        return studentNumber;
+        return id;
     }
 
     /**
      *
-     * @return student object's firstName
+     * @return student object's name
      */
-    public String getFirstName()
+    public String getName()
     {
-        return firstName;
+        return name;
     }
 
     /**
-     * This method initializes the student object's firstName with the value provided in parameters.
-     * @param firstName
+     * This method initializes the student object's name with the value provided in parameters.
+     * @param name
      */
-    public void setFirstName(String firstName)
+    public void setName(String name)
     {
-        this.firstName = firstName;
+        this.name = name;
     }
 
     /**
      *
-     * @return student object's lastName
+     * @return student object's surname
      */
-    public String getLastName()
+    public String getSurname()
     {
-        return lastName;
+        return surname;
     }
 
     /**
-     * This method initializes the student object's lastName with the value provided in parameters.
-     * @param lastName
+     * This method initializes the student object's surname with the value provided in parameters.
+     * @param surname
      */
-    public void setLastName(String lastName)
+    public void setSurname(String surname)
     {
-        this.lastName = lastName;
+        this.surname = surname;
     }
 
     /**
@@ -116,15 +108,15 @@ public class Student implements Serializable {
     }
 
     /**
-     * Concatenates firstName & lastName
+     * Concatenates name & surname
      *
-     * @return student's firstName & lastName
+     * @return student's name & surname
      */
     public String getFullName()
     {
         //Concatenated it here because when I do it in the constructor, the request is still
         //successful, but it returns an empty string.
-        this.fullName = firstName + " " + lastName;
+        this.fullName = name + " " + surname;
         return fullName;
     }
 
@@ -140,7 +132,7 @@ public class Student implements Serializable {
     @Override
     public int hashCode()
     {
-        return Objects.hash(studentNumber, firstName, lastName, address, fullName);
+        return Objects.hash(id, name, surname, address, fullName);
     }
 
     @Override
@@ -154,15 +146,15 @@ public class Student implements Serializable {
             return false;
 
         Student student = (Student) object;
-        return Objects.equals(studentNumber, student.studentNumber) &&
-                Objects.equals(firstName, student.firstName) &&
-                Objects.equals(lastName, student.lastName) &&
+        return Objects.equals(id, student.id) &&
+                Objects.equals(name, student.name) &&
+                Objects.equals(surname, student.surname) &&
                 Objects.equals(address, student.address) &&
                 Objects.equals(fullName, student.fullName);
     }
 
     /**
-     * Example Output: Student {studentNumber= '2', firstName= 'Lee', lastName= 'Bee', address= 'SA'}
+     * Example Output: Student {id= '2', name= 'Lee', surname= 'Bee', address= 'SA'}
      * It's just to make the contents of the Student object more readable.
      * @return
      */
@@ -170,9 +162,9 @@ public class Student implements Serializable {
     public String toString()
     {
         return "Student {" +
-                "studentNumber='" + studentNumber + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 ", address='" + address + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';

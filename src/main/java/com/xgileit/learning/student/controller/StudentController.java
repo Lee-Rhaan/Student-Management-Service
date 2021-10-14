@@ -7,20 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * The @RestController annotation is used to create Restful web services. It takes care of mapping
- * request data to the defined request handler method.
- *It's a special type of annotation (It consists of a @ResponseBody & @Controller annotation)
- * It eliminates the need to annotate every request handling method in this controller class with
- * a @ResponseBody annotation.
- *
- * The @ResponseBody annotation enables automatic serialization of the return object into the
- * HttpResponse (Serialization is when you convert an object into a stream of bytes).
- *
- * The @Controller annotation included in this @RestController annotation specifies that this class
- * is a controller class.
- * The @Controller annotation also indicates that this class is a component. So Spring Component Scanning
- * will automatically detect this class as a component, and create an instance of this class as a Bean
- * in Springs Application Context.
+ * This is the Controller class. It specifies the endpoints you'd have to use to get access
+ * to this server.
  *
  * The @RequestMapping annotation determines what type of requests this class handles. So in this case
  * if you want access to this class -> you need to access it through the base request("/api/v1/student")
@@ -55,7 +43,7 @@ public class StudentController {
      * How to access this method: "/api/v1/student/add"
      * This method adds a new student to the database.
      * @param student object
-     * @return the student with his/her studentNumber if the request were successful
+     * @return the student with his/her id if the request were successful
      */
     @PostMapping("/add")
     public Student addStudent(@RequestBody Student student)
@@ -79,48 +67,48 @@ public class StudentController {
     }
 
     /**
-     * How to access this method: "/api/v1/student/find/the studentNumber"
+     * How to access this method: "/api/v1/student/find/id"
      *
-     * This method will find a student object by it's studentNumber in the database.
+     * This method will find a student object by it's id in the database.
      *
-     * @param studentNumber
+     * @param id
      * @return student object if student exists in database or Error message if student
-     *         with specified studentNumber does not exist in database
+     *         with specified id does not exist in database
      */
-    @GetMapping("/find/{studentNumber}")
-    public Student findStudentByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
+    @GetMapping("/find/{id}")
+    public Student findStudentById(@PathVariable("id") Long id)
     {
-        return studentService.findStudent(studentNumber);
+        return studentService.findStudent(id);
     }
 
 
     /**
-     * How to access this method: "/api/v1/student/delete/ the studentNumber"
+     * How to access this method: "/api/v1/student/delete/id"
      *
-     * This method will delete a student object from the database by using it's studentNumber as
+     * This method will delete a student object from the database by using it's id as
      * a reference.
      *
-     * @param studentNumber
+     * @param id
      * @return empty response if request were successful
      */
-    @DeleteMapping("/delete/{studentNumber}")
-    public void deleteStudentByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
+    @DeleteMapping("/delete/{id}")
+    public void deleteStudentById(@PathVariable("id") Long id)
     {
-        studentService.deleteStudent(studentNumber);
+        studentService.deleteStudent(id);
     }
 
     /**
-     * How to access this method: "/api/v1/student/fullName/ the studentNumber"
+     * How to access this method: "/api/v1/student/fullName/id"
      *
-     * This method will concatenate the student's firstName and lastName
+     * This method will concatenate the student's name and surname
      *
-     * @param studentNumber
-     * @return Concatenated String of firstName & lastName of student
+     * @param id
+     * @return Concatenated String of name & surname of student
      */
-    @GetMapping("/fullName/{studentNumber}")
-    public String getFullNameByStudentNumber(@PathVariable("studentNumber") Long studentNumber)
+    @GetMapping("/fullName/{id}")
+    public String getFullNameById(@PathVariable("id") Long id)
     {
-        return studentService.getStudentFullName(studentNumber);
+        return studentService.getStudentFullName(id);
     }
 
 }
