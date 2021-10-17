@@ -1,19 +1,16 @@
 package com.xgileit.learning.student.model;
 
 import com.xgileit.learning.student.enums.Authority;
-import com.xgileit.learning.student.enums.Status;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * This is the Entity class which will be mapped to the database.
- * The name of this Entity will be the Table Name in the database.
- * It's instance variables will be the column names in the database
- */
 @Entity
-public class Student implements Serializable {
+public class Teacher implements Serializable {
 
     @Id
     @GeneratedValue
@@ -23,49 +20,28 @@ public class Student implements Serializable {
     private String address;
     private String email;
     private String phone;
-    private String studentCode;
+    private String employeeCode;
     private Authority authority;
-    private Status status;
     @Transient
     private String fullName;
 
-    /**
-     * The "JVM" always gives you a default constructor in your class unless you provide an
-     * argument constructor (then the "JVM" won't provide the no-argument constructor).
-     *
-     * An empty constructor is needed to create a new instance via reflection by your persistence
-     * framework.
-     */
-    public Student(){}
+    public Teacher(){}
 
-    /**
-     * I did not initialize the studentNumber in this constructor, because i'm going to generate
-     * a random studentNumber for each Student Object being created.
-     * @param name
-     * @param surname
-     * @param address
-     * @param email
-     * @param phone
-     * @param studentCode
-     * @param authority
-     * @param  status
-     */
-    public Student(String name, String surname, String address, String email, String phone,
-                   String studentCode, Authority authority, Status status)
+    public Teacher(String name, String surname, String address, String email, String phone,
+                 String employeeCode, Authority authority)
     {
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.studentCode = studentCode;
+        this.employeeCode = employeeCode;
         this.authority = authority;
-        this.status = status;
     }
 
     /**
      *
-     * @return student object's id
+     * @return teacher object's id
      */
     public Long getId()
     {
@@ -74,7 +50,7 @@ public class Student implements Serializable {
 
     /**
      *
-     * @return student object's name
+     * @return teacher object's name
      */
     public String getName()
     {
@@ -82,7 +58,7 @@ public class Student implements Serializable {
     }
 
     /**
-     * This method initializes the student object's name with the value provided in parameters.
+     * This method initializes the teacher object's name with the value provided in parameters.
      * @param name
      */
     public void setName(String name)
@@ -92,7 +68,7 @@ public class Student implements Serializable {
 
     /**
      *
-     * @return student object's surname
+     * @return teacher object's surname
      */
     public String getSurname()
     {
@@ -100,7 +76,7 @@ public class Student implements Serializable {
     }
 
     /**
-     * This method initializes the student object's surname with the value provided in parameters.
+     * This method initializes the teacher object's surname with the value provided in parameters.
      * @param surname
      */
     public void setSurname(String surname)
@@ -110,7 +86,7 @@ public class Student implements Serializable {
 
     /**
      *
-     * @return student object's address
+     * @return teacher object's address
      */
     public String getAddress()
     {
@@ -118,7 +94,7 @@ public class Student implements Serializable {
     }
 
     /**
-     * This method initializes the student object's address with the value provided in parameters.
+     * This method initializes the teacher object's address with the value provided in parameters.
      * @param address
      */
     public void setAddress(String address)
@@ -146,14 +122,14 @@ public class Student implements Serializable {
         this.phone = phone;
     }
 
-    public String getStudentCode()
+    public String getEmployeeCode()
     {
-        return studentCode;
+        return employeeCode;
     }
 
-    public void setStudentCode(String studentCode)
+    public void setEmployeeCode(String employeeCode)
     {
-        this.studentCode = studentCode;
+        this.employeeCode = employeeCode;
     }
 
     public Authority getAuthority()
@@ -166,20 +142,10 @@ public class Student implements Serializable {
         this.authority = authority;
     }
 
-    public Status getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(Status status)
-    {
-        this.status = status;
-    }
-
     /**
      * Concatenates name & surname
      *
-     * @return student's name & surname
+     * @return teacher name & surname
      */
     public String getFullName()
     {
@@ -201,8 +167,7 @@ public class Student implements Serializable {
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, name, surname, address, fullName, email, phone,
-                studentCode, authority, status);
+        return Objects.hash(id, name, surname, address, fullName, email, phone, employeeCode, authority);
     }
 
     @Override
@@ -215,27 +180,26 @@ public class Student implements Serializable {
         if(getClass() != object.getClass())
             return false;
 
-        Student student = (Student) object;
-        return Objects.equals(id, student.id) &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(surname, student.surname) &&
-                Objects.equals(address, student.address) &&
-                Objects.equals(fullName, student.fullName) &&
-                Objects.equals(email, student.email) &&
-                Objects.equals(phone, student.phone) &&
-                Objects.equals(studentCode, student.studentCode) &&
-                Objects.equals(authority, student.authority) &&
-                Objects.equals(status, student.status);
+        Teacher teacher = (Teacher) object;
+        return Objects.equals(id, teacher.id) &&
+                Objects.equals(name, teacher.name) &&
+                Objects.equals(surname, teacher.surname) &&
+                Objects.equals(address, teacher.address) &&
+                Objects.equals(fullName, teacher.fullName) &&
+                Objects.equals(email, teacher.email) &&
+                Objects.equals(phone, teacher.phone) &&
+                Objects.equals(employeeCode, teacher.employeeCode) &&
+                Objects.equals(authority, teacher.authority);
     }
 
     /**
-     * It's just to make the contents of the Student object more readable.
+     * It's just to make the contents of the Teacher object more readable.
      * @return
      */
     @Override
     public String toString()
     {
-        return "Student {" +
+        return "Teacher {" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -243,9 +207,8 @@ public class Student implements Serializable {
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", studentCode='" + studentCode + '\'' +
+                ", employeeCode='" + employeeCode + '\'' +
                 ", authority='" + authority + '\'' +
-                ", status='" + status + '\'' +
                 '}';
     }
 }
