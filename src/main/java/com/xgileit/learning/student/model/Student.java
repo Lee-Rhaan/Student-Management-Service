@@ -46,21 +46,14 @@ public class Student implements Serializable {
      * @param address
      * @param email
      * @param phone
-     * @param studentCode
-     * @param authority
-     * @param  status
      */
-    public Student(String name, String surname, String address, String email, String phone,
-                   String studentCode, Authority authority, Status status)
+    public Student(String name, String surname, String address, String email, String phone)
     {
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.studentCode = studentCode;
-        this.authority = authority;
-        this.status = status;
     }
 
     /**

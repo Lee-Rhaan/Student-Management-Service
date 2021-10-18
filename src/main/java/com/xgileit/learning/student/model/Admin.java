@@ -27,16 +27,13 @@ public class Admin implements Serializable {
 
     public Admin(){}
 
-    public Admin(String name, String surname, String address, String email, String phone,
-                   String employeeCode, Authority authority)
+    public Admin(String name, String surname, String address, String email, String phone)
     {
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.employeeCode = employeeCode;
-        this.authority = authority;
     }
 
     /**

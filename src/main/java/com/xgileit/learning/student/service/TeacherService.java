@@ -2,9 +2,11 @@ package com.xgileit.learning.student.service;
 
 import com.xgileit.learning.student.model.Student;
 import com.xgileit.learning.student.repo.StudentRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TeacherService {
 
     //should be able to do attendance

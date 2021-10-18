@@ -2,7 +2,10 @@ package com.xgileit.learning.student.service;
 
 import com.xgileit.learning.student.model.Student;
 import com.xgileit.learning.student.repo.StudentRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class StudentService {
 
     //should be able to unregister
@@ -24,6 +27,15 @@ public class StudentService {
         return student;
     }
 
+    public Student leaveClass(Student student)
+    {
+        classroomService.leaveClass(student);
+        studentRepository.save(student);
+
+        return student;
+    }
+
+    @Transactional
     public void unregister(Long id)
     {
         studentRepository.deleteStudentById(id);
