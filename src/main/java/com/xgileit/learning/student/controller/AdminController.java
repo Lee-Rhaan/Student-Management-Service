@@ -4,7 +4,6 @@ import com.xgileit.learning.student.model.Admin;
 import com.xgileit.learning.student.model.Student;
 import com.xgileit.learning.student.model.Teacher;
 import com.xgileit.learning.student.service.AdminService;
-import com.xgileit.learning.student.service.TeacherService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * to this server.
  *
  * The @RequestMapping annotation determines what type of requests this class handles. So in this case
- * if you want access to this class -> you need to access it through the base request("/api/v1/student")
+ * if you want access to this class -> you need to access it through the base request("/api/v1/admin")
  */
 @RestController
 @RequestMapping(value="/api/v1/admin")
@@ -32,12 +31,20 @@ public class AdminController {
         this.adminService = adminService;
     }
 
+    /**
+     * How to access this method: "/api/v1/admin/all/teacher"
+     * @return list of all teachers stored in database.
+     */
     @GetMapping("/all/teacher")
     public List<Teacher> listAllTeachers()
     {
         return adminService.getAllTeachers();
     }
 
+    /**
+     * How to access this method: "/api/v1/admin/all/admin"
+     * @return list of all admin's stored in database.
+     */
     @GetMapping("/all/admin")
     public List<Admin> listAllAdmins()
     {

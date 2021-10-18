@@ -9,6 +9,10 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * This is the Teacher Entity class which will be mapped to the database.
+ * This entity will store all the teachers in this student management service.
+ */
 @Entity
 public class Teacher implements Serializable {
 
@@ -25,8 +29,21 @@ public class Teacher implements Serializable {
     @Transient
     private String fullName;
 
+    /**
+     * An empty constructor is needed to create a new instance via reflection by your persistence
+     * framework.
+     */
     public Teacher(){}
 
+    /**
+     * This is the teachers details every teacher needs to submit in order to be stored in the
+     * database.
+     * @param name
+     * @param surname
+     * @param address
+     * @param email
+     * @param phone
+     */
     public Teacher(String name, String surname, String address, String email, String phone)
     {
         this.name = name;
@@ -37,7 +54,6 @@ public class Teacher implements Serializable {
     }
 
     /**
-     *
      * @return teacher object's id
      */
     public Long getId()
@@ -46,7 +62,6 @@ public class Teacher implements Serializable {
     }
 
     /**
-     *
      * @return teacher object's name
      */
     public String getName()
@@ -64,7 +79,6 @@ public class Teacher implements Serializable {
     }
 
     /**
-     *
      * @return teacher object's surname
      */
     public String getSurname()
@@ -82,7 +96,6 @@ public class Teacher implements Serializable {
     }
 
     /**
-     *
      * @return teacher object's address
      */
     public String getAddress()
@@ -99,41 +112,69 @@ public class Teacher implements Serializable {
         this.address = address;
     }
 
+    /**
+     * @return teacher object's email
+     */
     public String getEmail()
     {
         return email;
     }
 
+    /**
+     * This method initializes the teacher object's email with the value provided in parameters.
+     * @param email
+     */
     public void setEmail(String email)
     {
         this.email = email;
     }
 
+    /**
+     * @return teacher object's phone
+     */
     public String getPhone()
     {
         return phone;
     }
 
+    /**
+     * This method initializes the teacher object's phone with the value provided in parameters.
+     * @param phone
+     */
     public void setPhone(String phone)
     {
         this.phone = phone;
     }
 
+    /**
+     * @return teacher object's employeeCode
+     */
     public String getEmployeeCode()
     {
         return employeeCode;
     }
 
+    /**
+     * This method initializes the teacher object's employeeCode with the value provided in parameters.
+     * @param employeeCode
+     */
     public void setEmployeeCode(String employeeCode)
     {
         this.employeeCode = employeeCode;
     }
 
+    /**
+     * @return teacher object's authority (values = STUDENT, TEACHER, ADMIN)
+     */
     public Authority getAuthority()
     {
         return authority;
     }
 
+    /**
+     * This method initializes the teacher object's authority with the value provided in parameters.
+     * @param authority
+     */
     public void setAuthority(Authority authority)
     {
         this.authority = authority;

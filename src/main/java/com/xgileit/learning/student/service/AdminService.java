@@ -41,21 +41,29 @@ public class AdminService {
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * @return list of all teacher objects in database
+     */
     public List<Teacher> getAllTeachers()
     {
         return teacherRepository.findAll();
     }
 
+    /**
+     * @return list of all admin objects in database
+     */
     public List<Admin> getAllAdmins()
     {
         return adminRepository.findAll();
     }
 
     /**
-     * Adds a new student into the database
+     * Assigning the student object a unique studentCode upon registration.
+     * Setting the student's authority to it's role in this student management service.
+     * Setting it's status and then adding the student to the database.
      *
      * @param student object
-     * @return saved student
+     * @return registered student
      */
     public Student registerStudent(Student student)
     {
@@ -66,6 +74,14 @@ public class AdminService {
         return studentRepository.save(student);
     }
 
+    /**
+     * Assigning the teacher object a unique employeeCode upon employment.
+     * Setting the teacher's authority to it's role in this student management service.
+     * Then adding the teacher to the database.
+     *
+     * @param teacher object
+     * @return employed teacher
+     */
     public Teacher employTeacher(Teacher teacher)
     {
         teacher.setEmployeeCode(UUID.randomUUID().toString());
@@ -74,6 +90,14 @@ public class AdminService {
         return teacherRepository.save(teacher);
     }
 
+    /**
+     * Assigning the admin object a unique employeeCode upon employment.
+     * Setting the admin's authority to it's role in this student management service.
+     * Then adding the admin to the database.
+     *
+     * @param admin object
+     * @return employed admin
+     */
     public Admin employAdmin(Admin admin)
     {
         admin.setEmployeeCode(UUID.randomUUID().toString());
@@ -93,11 +117,23 @@ public class AdminService {
         return studentRepository.save(student);
     }
 
+    /**
+     * Updates the properties of an existing teacher in the database.
+     *
+     * @param teacher object
+     * @return updated teacher
+     */
     public Teacher updateTeacher(Teacher teacher)
     {
         return teacherRepository.save(teacher);
     }
 
+    /**
+     * Updates the properties of an existing admin in the database.
+     *
+     * @param admin object
+     * @return updated admin
+     */
     public Admin updateAdmin(Admin admin)
     {
         return adminRepository.save(admin);
@@ -116,12 +152,26 @@ public class AdminService {
                 new StudentNotFoundException("Student with id: " + id + " not found"));
     }
 
+    /**
+     * Checks if the id being passed as an argument exists in the database.
+     *
+     * @param id Long
+     * @return teacher with matching id or throws a teacher not found exception if there's
+     *         no matching id's in the database.
+     */
     public Teacher findTeacher(Long id)
     {
         return teacherRepository.findTeacherById(id).orElseThrow(() ->
                 new TeacherNotFoundException("Teacher with id: " + id + " not found"));
     }
 
+    /**
+     * Checks if the id being passed as an argument exists in the database.
+     *
+     * @param id Long
+     * @return admin with matching id or throws an admin not found exception if there's
+     *         no matching id's in the database.
+     */
     public Admin findAdmin(Long id)
     {
         return adminRepository.findAdminById(id).orElseThrow(() ->
@@ -140,6 +190,12 @@ public class AdminService {
         teacherRepository.deleteTeacherById(id);
     }
 
+    /**
+     * Checks if an admin with a matching id exists in the database.
+     * If it exists, the admin will be removed.
+     *
+     * @param id Long
+     */
     @Transactional
     public void deleteAdmin(Long id)
     {
@@ -159,12 +215,26 @@ public class AdminService {
         return student.get().getFullName();
     }
 
+    /**
+     * Checks if the teacher with the matching id exists in the database, then
+     * it will return the FullName of the teacher.
+     *
+     * @param id Long
+     * @return concatenated name & surname of teacher (String)
+     */
     public String getTeacherFullName(Long id)
     {
         Optional<Teacher> teacher = teacherRepository.findTeacherById(id);
         return teacher.get().getFullName();
     }
 
+    /**
+     * Checks if the admin with the matching id exists in the database, then
+     * it will return the FullName of the admin.
+     *
+     * @param id Long
+     * @return concatenated name & surname of admin (String)
+     */
     public String getAdminFullName(Long id)
     {
         Optional<Admin> admin = adminRepository.findAdminById(id);

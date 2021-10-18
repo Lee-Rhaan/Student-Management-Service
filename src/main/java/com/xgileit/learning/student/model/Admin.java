@@ -9,6 +9,10 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * This is the Admin Entity class which will be mapped to the database.
+ * This entity will store all the admins in this student management service.
+ */
 @Entity
 public class Admin implements Serializable {
 
@@ -25,8 +29,21 @@ public class Admin implements Serializable {
     @Transient
     private String fullName;
 
+    /**
+     * An empty constructor is needed to create a new instance via reflection by your persistence
+     * framework.
+     */
     public Admin(){}
 
+    /**
+     * This is the student details every student needs to submit in order to be stored in the
+     * database.
+     * @param name
+     * @param surname
+     * @param address
+     * @param email
+     * @param phone
+     */
     public Admin(String name, String surname, String address, String email, String phone)
     {
         this.name = name;
@@ -37,7 +54,6 @@ public class Admin implements Serializable {
     }
 
     /**
-     *
      * @return admin object's id
      */
     public Long getId()
@@ -46,7 +62,6 @@ public class Admin implements Serializable {
     }
 
     /**
-     *
      * @return admin object's name
      */
     public String getName()
@@ -64,7 +79,6 @@ public class Admin implements Serializable {
     }
 
     /**
-     *
      * @return admin object's surname
      */
     public String getSurname()
@@ -82,7 +96,6 @@ public class Admin implements Serializable {
     }
 
     /**
-     *
      * @return admin object's address
      */
     public String getAddress()
@@ -99,41 +112,69 @@ public class Admin implements Serializable {
         this.address = address;
     }
 
+    /**
+     * @return admin object's email
+     */
     public String getEmail()
     {
         return email;
     }
 
+    /**
+     *This method initializes the admin object's email with the value provided in parameters.
+     * @param email
+     */
     public void setEmail(String email)
     {
         this.email = email;
     }
 
+    /**
+     * @return admin object's phone
+     */
     public String getPhone()
     {
         return phone;
     }
 
+    /**
+     * This method initializes the admin object's phone with the value provided in parameters.
+     * @param phone
+     */
     public void setPhone(String phone)
     {
         this.phone = phone;
     }
 
+    /**
+     * @return admin object's employeeCode
+     */
     public String getEmployeeCode()
     {
         return employeeCode;
     }
 
+    /**
+     * This method initializes the admin object's employeeCode with the value provided in parameters.
+     * @param employeeCode
+     */
     public void setEmployeeCode(String employeeCode)
     {
         this.employeeCode = employeeCode;
     }
 
+    /**
+     * @return admin object's authority (values = STUDENT, TEACHER, ADMIN)
+     */
     public Authority getAuthority()
     {
         return authority;
     }
 
+    /**
+     * This method initializes the admin object's authority with the value provided in parameters.
+     * @param authority
+     */
     public void setAuthority(Authority authority)
     {
         this.authority = authority;

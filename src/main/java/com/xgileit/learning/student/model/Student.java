@@ -8,9 +8,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * This is the Entity class which will be mapped to the database.
- * The name of this Entity will be the Table Name in the database.
- * It's instance variables will be the column names in the database
+ * This is the Student Entity class which will be mapped to the database.
+ * This entity will store all the students in this student management service.
  */
 @Entity
 public class Student implements Serializable {
@@ -30,17 +29,14 @@ public class Student implements Serializable {
     private String fullName;
 
     /**
-     * The "JVM" always gives you a default constructor in your class unless you provide an
-     * argument constructor (then the "JVM" won't provide the no-argument constructor).
-     *
      * An empty constructor is needed to create a new instance via reflection by your persistence
      * framework.
      */
     public Student(){}
 
     /**
-     * I did not initialize the studentNumber in this constructor, because i'm going to generate
-     * a random studentNumber for each Student Object being created.
+     * This is the student details every student needs to submit in order to be stored in the
+     * database.
      * @param name
      * @param surname
      * @param address
@@ -57,7 +53,6 @@ public class Student implements Serializable {
     }
 
     /**
-     *
      * @return student object's id
      */
     public Long getId()
@@ -66,7 +61,6 @@ public class Student implements Serializable {
     }
 
     /**
-     *
      * @return student object's name
      */
     public String getName()
@@ -84,7 +78,6 @@ public class Student implements Serializable {
     }
 
     /**
-     *
      * @return student object's surname
      */
     public String getSurname()
@@ -102,7 +95,6 @@ public class Student implements Serializable {
     }
 
     /**
-     *
      * @return student object's address
      */
     public String getAddress()
@@ -119,51 +111,86 @@ public class Student implements Serializable {
         this.address = address;
     }
 
+    /**
+     * @return student object's email
+     */
     public String getEmail()
     {
         return email;
     }
 
+    /**
+     * This method initializes the student object's email with the value provided in parameters.
+     * @param email
+     */
     public void setEmail(String email)
     {
         this.email = email;
     }
 
+    /**
+     * @return student object's phone
+     */
     public String getPhone()
     {
         return phone;
     }
 
+    /**
+     * This method initializes the student object's phone with the value provided in parameters.
+     * @param phone
+     */
     public void setPhone(String phone)
     {
         this.phone = phone;
     }
 
+    /**
+     * @return student object's studentCode
+     */
     public String getStudentCode()
     {
         return studentCode;
     }
 
+    /**
+     * This method initializes the student object's studentCode with the value provided in parameters.
+     * @param studentCode
+     */
     public void setStudentCode(String studentCode)
     {
         this.studentCode = studentCode;
     }
 
+    /**
+     * @return student object's authority (values = STUDENT, TEACHER, ADMIN)
+     */
     public Authority getAuthority()
     {
         return authority;
     }
 
+    /**
+     * This method initializes the student object's authority with the value provided in parameters.
+     * @param authority
+     */
     public void setAuthority(Authority authority)
     {
         this.authority = authority;
     }
 
+    /**
+     * @return student object's status (values = IN_CLASS, NOT_IN_CLASS)
+     */
     public Status getStatus()
     {
         return status;
     }
 
+    /**
+     * This method initializes the student object's status with the value provided in parameters.
+     * @param status
+     */
     public void setStatus(Status status)
     {
         this.status = status;
